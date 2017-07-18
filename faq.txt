@@ -1,0 +1,31 @@
+Q:
+ImportError: No module named vectors
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "imusim/all/__init__.py", line 31, in <module>
+    exec("import %s" % modname)
+  File "<string>", line 1, in <module>
+  File "imusim/algorithms/calibration.py", line 24, in <module>
+    import imusim.maths.vectors as vectors
+
+A:
+
+This is a problem that occurs when you run python or ipython from the
+directory that you installed IMUSim from. Because the 'imusim' directory
+containing the code is present there, Python tries to import the
+packages from this location rather than the location they have been
+installed to. This fails because the parts which were compiled from C
+(including imusim.maths.vectors) are not found there.
+
+There are two solutions, either should work:
+
+1. Simply change to any other directory before running ipython.
+
+or:
+
+2. Tell setup.py to build the extensions in place:
+
+        python setup.py build_ext --inplace
+
+(adding the --compiler=mingw32 -liberty options if using MinGW)
