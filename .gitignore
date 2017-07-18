@@ -2,3 +2,4 @@
 *.so
 build
 docs/build
+imusim.egg-info
